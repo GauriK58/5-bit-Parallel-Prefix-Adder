@@ -1,0 +1,47 @@
+* SPICE3 file created from dff.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 X D gnd Gnd nfet w=10 l=2
++  ad=50 pd=30 as=250 ps=140
+M1001 Y CLK vdd vdd pfet w=20 l=2
++  ad=100 pd=50 as=500 ps=240
+M1002 Q Qbar gnd Gnd nfet w=10 l=2
++  ad=50 pd=30 as=0 ps=0
+M1003 a_14_34# D vdd vdd pfet w=40 l=2
++  ad=160 pd=88 as=0 ps=0
+M1004 a_66_32# Y gnd Gnd nfet w=10 l=2
++  ad=40 pd=28 as=0 ps=0
+M1005 Qbar CLK a_66_32# Gnd nfet w=10 l=2
++  ad=50 pd=30 as=0 ps=0
+M1006 X CLK a_14_34# vdd pfet w=40 l=2
++  ad=200 pd=90 as=0 ps=0
+M1007 Qbar Y vdd vdd pfet w=20 l=2
++  ad=100 pd=50 as=0 ps=0
+M1008 a_44_22# X Y Gnd nfet w=20 l=2
++  ad=80 pd=48 as=100 ps=50
+M1009 gnd CLK a_44_22# Gnd nfet w=20 l=2
++  ad=0 pd=0 as=0 ps=0
+M1010 Q Qbar vdd vdd pfet w=20 l=2
++  ad=100 pd=50 as=0 ps=0
+C0 gnd X 0.25fF
+C1 CLK gnd 0.19fF
+C2 Qbar vdd 0.13fF
+C3 CLK D 0.10fF
+C4 X vdd 0.03fF
+C5 CLK vdd 0.13fF
+C6 Y vdd 0.14fF
+C7 Q vdd 0.03fF
+C8 D vdd 0.10fF
+C9 Y Qbar 0.02fF
+C10 Qbar Q 0.03fF
+C11 CLK X 0.36fF
+C12 Y CLK 0.10fF
+C13 gnd Gnd 0.43fF
+C14 Q Gnd 0.03fF
+C15 X Gnd 0.24fF
+C16 Qbar Gnd 0.12fF
+C17 Y Gnd 0.12fF
+C18 CLK Gnd 1.29fF
+C19 D Gnd 0.11fF
+C20 vdd Gnd 3.68fF

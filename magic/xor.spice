@@ -1,0 +1,44 @@
+* SPICE3 file created from xor.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 a_6_n17# inputb a_n6_5# Gnd nfet w=10 l=2
++  ad=50 pd=30 as=60 ps=32
+M1001 a_26_n17# a_6_n17# gnd Gnd nfet w=10 l=2
++  ad=50 pd=30 as=150 ps=90
+M1002 out a_26_n17# vdd vdd pfet w=20 l=2
++  ad=100 pd=50 as=300 ps=150
+M1003 out a_26_n17# gnd Gnd nfet w=10 l=2
++  ad=50 pd=30 as=0 ps=0
+M1004 a_6_n17# inputb inputa vdd pfet w=20 l=2
++  ad=100 pd=50 as=100 ps=50
+M1005 a_n6_5# inputa vdd vdd pfet w=20 l=2
++  ad=100 pd=50 as=0 ps=0
+M1006 a_26_n17# a_6_n17# vdd vdd pfet w=20 l=2
++  ad=100 pd=50 as=0 ps=0
+M1007 a_n6_5# inputa gnd Gnd nfet w=10 l=2
++  ad=0 pd=0 as=0 ps=0
+C0 inputa a_n6_5# 0.06fF
+C1 vdd out 0.02fF
+C2 inputa inputb 0.05fF
+C3 vdd a_6_n17# 0.09fF
+C4 a_26_n17# gnd 0.02fF
+C5 a_6_n17# a_n6_5# 0.08fF
+C6 inputa gnd 0.02fF
+C7 inputb a_6_n17# 0.02fF
+C8 vdd a_n6_5# 0.03fF
+C9 vdd inputb 0.10fF
+C10 a_26_n17# out 0.05fF
+C11 a_6_n17# gnd 0.02fF
+C12 a_6_n17# a_26_n17# 0.05fF
+C13 vdd a_26_n17# 0.09fF
+C14 vdd inputa 0.34fF
+C15 inputb gnd 0.14fF
+C16 gnd Gnd 0.25fF
+C17 out Gnd 0.04fF
+C18 a_n6_5# Gnd 0.02fF
+C19 a_26_n17# Gnd 0.14fF
+C20 a_6_n17# Gnd 0.15fF
+C21 inputb Gnd 0.13fF
+C22 inputa Gnd 0.12fF
+C23 vdd Gnd 2.69fF

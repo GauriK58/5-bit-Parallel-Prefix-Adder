@@ -1,0 +1,30 @@
+timestamp 1764688557
+version 8.3
+tech scmos
+style TSMC0.18um(tsmc18)from:t11b
+scale 1000 1 9
+resistclasses 6700 7500 929000 929000 1 7700 7700 80 80 80 70 70 40
+node "a_7_n28#" 17 0 7 -28 ndif 160 56 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "gnd" 67 211.901 -16 -35 poc 150 80 16 16 0 0 0 0 0 0 0 0 0 0 243 166 0 0 0 0 0 0 0 0 0 0
+node "out" 44 41.3781 -17 -18 ndif 50 30 100 50 0 0 0 0 0 0 0 0 0 0 95 66 0 0 0 0 0 0 0 0 0 0
+node "inputb" 231 112.537 15 -31 p 0 0 0 0 0 0 0 0 0 0 136 132 0 0 22 20 0 0 0 0 0 0 0 0 0 0
+node "inputa" 231 112.537 5 -31 p 0 0 0 0 0 0 0 0 0 0 136 132 0 0 22 20 0 0 0 0 0 0 0 0 0 0
+node "a_n12_n21#" 299 138.155 -12 -21 p 100 50 200 100 0 0 0 0 0 0 116 112 0 0 205 140 0 0 0 0 0 0 0 0 0 0
+node "vdd" 1229 2108.22 -23 -2 nw 16 16 260 106 2091 184 0 0 0 0 0 0 0 0 272 154 0 0 0 0 0 0 0 0 0 0
+cap "out" "a_n12_n21#" 90.3309
+cap "vdd" "a_n12_n21#" 177.804
+cap "a_n12_n21#" "inputb" 118.443
+cap "gnd" "a_n12_n21#" 17.6734
+cap "vdd" "inputa" 76.39
+cap "out" "vdd" 28.6236
+cap "inputa" "inputb" 60.4635
+cap "a_n12_n21#" "inputa" 200.919
+cap "vdd" "inputb" 76.39
+fet nfet 15 -28 16 -27 40 44 "Gnd!" "inputb" 4 0 "a_7_n28#" 20 0 "gnd" 20 0
+fet nfet 5 -28 6 -27 40 44 "Gnd!" "inputa" 4 0 "a_n12_n21#" 20 0 "a_7_n28#" 20 0
+fet nfet -12 -18 -11 -17 20 24 "Gnd!" "a_n12_n21#" 4 0 "out" 10 0 "gnd" 10 0
+fet pfet 15 6 16 7 40 44 "vdd" "inputb" 4 0 "vdd" 20 0 "a_n12_n21#" 20 0
+fet pfet 5 6 6 7 40 44 "vdd" "inputa" 4 0 "a_n12_n21#" 20 0 "vdd" 20 0
+fet pfet -12 6 -11 7 40 44 "vdd" "a_n12_n21#" 4 0 "out" 20 0 "vdd" 20 0
+subcap "gnd" -17.7102
+subcap "out" -2.9517

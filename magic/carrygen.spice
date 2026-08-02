@@ -1,0 +1,56 @@
+* SPICE3 file created from carrygen.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 vdd Pi a_6_40# vdd pfet w=20 l=2
++  ad=560 pd=246 as=200 ps=100
+M1001 out a_64_8# gnd Gnd nfet w=10 l=2
++  ad=50 pd=30 as=300 ps=170
+M1002 gnd Gi a_64_8# Gnd nfet w=10 l=2
++  ad=0 pd=0 as=60 ps=32
+M1003 PiCi a_6_40# gnd Gnd nfet w=10 l=2
++  ad=50 pd=30 as=0 ps=0
+M1004 a_64_30# PiCi vdd vdd pfet w=40 l=2
++  ad=240 pd=92 as=0 ps=0
+M1005 a_13_6# Pi gnd Gnd nfet w=20 l=2
++  ad=160 pd=56 as=0 ps=0
+M1006 a_64_8# Gi a_64_30# vdd pfet w=40 l=2
++  ad=200 pd=90 as=0 ps=0
+M1007 out a_64_8# vdd vdd pfet w=20 l=2
++  ad=100 pd=50 as=0 ps=0
+M1008 PiCi a_6_40# vdd vdd pfet w=20 l=2
++  ad=100 pd=50 as=0 ps=0
+M1009 a_6_40# Ci a_13_6# Gnd nfet w=20 l=2
++  ad=100 pd=50 as=0 ps=0
+M1010 a_6_40# Ci vdd vdd pfet w=20 l=2
++  ad=0 pd=0 as=0 ps=0
+M1011 a_64_8# PiCi gnd Gnd nfet w=10 l=2
++  ad=0 pd=0 as=0 ps=0
+C0 Pi a_6_40# 0.12fF
+C1 a_6_40# PiCi 0.09fF
+C2 out Gi 0.02fF
+C3 a_6_40# vdd 0.18fF
+C4 Pi Ci 0.06fF
+C5 Ci vdd 0.08fF
+C6 a_64_8# PiCi 0.05fF
+C7 a_64_8# a_64_30# 0.00fF
+C8 a_64_8# vdd 0.13fF
+C9 Pi vdd 0.08fF
+C10 Gi gnd 0.04fF
+C11 PiCi vdd 0.12fF
+C12 a_64_8# Gi 0.22fF
+C13 a_64_8# out 0.05fF
+C14 a_6_40# gnd 0.02fF
+C15 PiCi Gi 0.07fF
+C16 a_6_40# Ci 0.20fF
+C17 Gi vdd 0.06fF
+C18 out vdd 0.03fF
+C19 gnd Gnd 0.35fF
+C20 out Gnd 0.06fF
+C21 a_64_8# Gnd 0.15fF
+C22 a_6_40# Gnd 0.14fF
+C23 Ci Gnd 0.11fF
+C24 Pi Gnd 0.11fF
+C25 Gi Gnd 0.13fF
+C26 PiCi Gnd 0.14fF
+C27 vdd Gnd 4.28fF
