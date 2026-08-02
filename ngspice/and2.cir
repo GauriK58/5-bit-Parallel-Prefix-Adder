@@ -1,0 +1,39 @@
+.include TSMC_180nm.txt
+.param LAMBDA = 0.09u
+.param width_N = {10*LAMBDA}
+.param width_P = 2*width_N
+
+vdd vdd gnd dc 1.8V
+
+Va a 0 PULSE(0 1.8 0u 1p 1p 50n 100n)
+Vb b 0 PULSE(0 1.8 0u 1p 1p 100n 200n)
+
+*D G S B
+
+*nand*
+M1 nandOut a vdd vdd CMOSP W={width_P} L={2*LAMBDA} 
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+M2 nandOut b vdd vdd CMOSP W={width_P} L={2*LAMBDA} 
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+M3 nandOut a x gnd CMOSN W={2*width_N} L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+M4  x b gnd gnd CMOSN W={2*width_N} L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+*inverter*
+M5 out nandOut vdd vdd CMOSP W={width_P} L={2*LAMBDA} 
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+M6 out nandOut gnd gnd CMOSN W={width_N} L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+.tran 0.1n 200nan
+
+.control
+
+run
+plot V(a) V(b)+2 V(out)+4
+.endc
+
+.end
+

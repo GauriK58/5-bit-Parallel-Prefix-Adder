@@ -1,0 +1,159 @@
+* .include "TSMC_180nm.txt"
+
+* .option scale=0.09u
+
+* vdd vdd gnd dc 1.8V
+
+* Va inputa 0 PULSE(0 1.8 0n 1p 1p 50n 100n)
+* Vb inputb 0 PULSE(0 1.8 0n 1p 1p 100n 200n)
+
+
+* M1000 out a_n2_n32# gnd Gnd CMOSN w=10 l=2
+* +  ad=50 pd=30 as=150 ps=90
+* M1001 out a_n2_n32# vdd vdd CMOSP w=20 l=2
+* +  ad=100 pd=50 as=300 ps=140
+* M1002 a_n2_n32# inputb a_n2_n10# vdd CMOSP w=40 l=2
+* +  ad=200 pd=90 as=240 ps=92
+* M1003 a_n2_n32# inputa gnd Gnd CMOSN w=10 l=2
+* +  ad=60 pd=32 as=0 ps=0
+* M1004 a_n2_n10# inputa vdd vdd CMOSP w=40 l=2
+* +  ad=0 pd=0 as=0 ps=0
+* M1005 gnd inputb a_n2_n32# Gnd CMOSN w=10 l=2
+
+* * Extracted parasitic capacitances
+* C0 out vdd 0.03fF
+* C1 vdd inputb 0.06fF
+* C2 out a_n2_n32# 0.05fF
+* C3 a_n2_n32# inputb 0.22fF
+* C4 inputa vdd 0.08fF
+* C5 a_n2_n32# a_n2_n10# 0.00fF
+* C6 out inputb 0.02fF
+* C7 inputa a_n2_n32# 0.04fF
+* C8 gnd inputb 0.04fF
+* C9 vdd a_n2_n32# 0.13fF
+* C10 inputa inputb 0.07fF
+* C11 gnd Gnd 0.14fF
+* C12 out Gnd 0.07fF
+* C13 a_n2_n32# Gnd 0.15fF
+* C14 inputb Gnd 0.13fF
+* C15 inputa Gnd 0.10fF
+* C16 vdd Gnd 2.38fF
+
+* .tran 1p 300n
+
+* .control
+* run
+* plot v(inputa) v(inputb)+2 v(out)+4
+* .endc
+
+* .end
+
+* *and post
+
+* .include "TSMC_180nm.txt"
+
+* .option scale=0.09u
+
+* vdd vdd gnd dc 1.8V
+
+* Va inputa 0 PULSE(0 1.8 0n 1p 1p 50n 100n)
+* Vb inputb 0 PULSE(0 1.8 0n 1p 1p 100n 200n)
+
+* M1000 a_n12_n21# inputb vdd vdd CMOSP w=20 l=2
+* +  ad=200 pd=100 as=260 ps=106
+* M1001 a_7_n28# inputa a_n12_n21# Gnd CMOSN w=20 l=2
+* +  ad=160 pd=56 as=100 ps=50
+* M1002 vdd inputa a_n12_n21# vdd CMOSP w=20 l=2
+* +  ad=0 pd=0 as=0 ps=0
+* M1003 gnd inputb a_7_n28# Gnd CMOSN w=20 l=2
+* +  ad=150 pd=80 as=0 ps=0
+* M1004 vdd a_n12_n21# out vdd CMOSP w=20 l=2
+* +  ad=0 pd=0 as=100 ps=50
+* M1005 gnd a_n12_n21# out Gnd CMOSN w=10 l=2
+* +  ad=0 pd=0 as=50 ps=30
+
+* C0 a_n12_n21# inputb 0.12fF
+* C1 vdd out 0.03fF
+* C2 vdd a_n12_n21# 0.18fF
+* C3 a_n12_n21# gnd 0.02fF
+* C4 a_n12_n21# inputa 0.20fF
+* C5 vdd inputb 0.08fF
+* C6 a_n12_n21# out 0.09fF
+* C7 inputa inputb 0.06fF
+* C8 vdd inputa 0.08fF
+* C9 gnd Gnd 0.19fF
+* C10 out Gnd 0.04fF
+* C11 inputb Gnd 0.11fF
+* C12 inputa Gnd 0.11fF
+* C13 a_n12_n21# Gnd 0.14fF
+* C14 vdd Gnd 2.11fF
+
+* .tran 1p 300n
+
+* .control
+* run
+* plot v(inputa) v(inputb)+2 v(out)+4
+* .endc
+
+* .end
+
+**xor post
+
+* .include "TSMC_180nm.txt"
+
+* .option scale=0.09u
+
+* vdd vdd gnd dc 1.8V
+
+* Va inputa 0 PULSE(0 1.8 0n 1p 1p 50n 100n)
+* Vb inputb 0 PULSE(0 1.8 0n 1p 1p 100n 200n)
+
+* M1000 a_6_n17# inputb a_n6_5# Gnd CMOSN w=10 l=2
+* +  ad=50 pd=30 as=60 ps=32
+* M1001 a_26_n17# a_6_n17# gnd Gnd CMOSN w=10 l=2
+* +  ad=50 pd=30 as=150 ps=90
+* M1002 out a_26_n17# vdd vdd CMOSP w=20 l=2
+* +  ad=100 pd=50 as=300 ps=150
+* M1003 out a_26_n17# gnd Gnd CMOSN w=10 l=2
+* +  ad=50 pd=30 as=0 ps=0
+* M1004 a_6_n17# inputb inputa vdd CMOSP w=20 l=2
+* +  ad=100 pd=50 as=100 ps=50
+* M1005 a_n6_5# inputa vdd vdd CMOSP w=20 l=2
+* +  ad=100 pd=50 as=0 ps=0
+* M1006 a_26_n17# a_6_n17# vdd vdd CMOSP w=20 l=2
+* +  ad=100 pd=50 as=0 ps=0
+* M1007 a_n6_5# inputa gnd Gnd CMOSN w=10 l=2
+
+* C0 inputa a_n6_5# 0.06fF
+* C1 vdd out 0.02fF
+* C2 inputa inputb 0.05fF
+* C3 vdd a_6_n17# 0.09fF
+* C4 a_26_n17# gnd 0.02fF
+* C5 a_6_n17# a_n6_5# 0.08fF
+* C6 inputa gnd 0.02fF
+* C7 inputb a_6_n17# 0.02fF
+* C8 vdd a_n6_5# 0.03fF
+* C9 vdd inputb 0.10fF
+* C10 a_26_n17# out 0.05fF
+* C11 a_6_n17# gnd 0.02fF
+* C12 a_6_n17# a_26_n17# 0.05fF
+* C13 vdd a_26_n17# 0.09fF
+* C14 vdd inputa 0.34fF
+* C15 inputb gnd 0.14fF
+* C16 gnd Gnd 0.25fF
+* C17 out Gnd 0.04fF
+* C18 a_n6_5# Gnd 0.02fF
+* C19 a_26_n17# Gnd 0.14fF
+* C20 a_6_n17# Gnd 0.15fF
+* C21 inputb Gnd 0.13fF
+* C22 inputa Gnd 0.12fF
+* C23 vdd Gnd 2.69fF
+
+* .tran 1p 300n
+
+* .control
+* run
+* plot v(inputa) v(inputb)+2 v(out)+4
+* .endc
+
+* .end

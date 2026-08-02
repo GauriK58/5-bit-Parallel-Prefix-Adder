@@ -1,0 +1,187 @@
+.include TSMC_180nm.txt
+.param LAMBDA=0.09u
+.global gnd vdd
+.param width_N={10*LAMBDA}
+.param width_P=2*width_N
+
+vdd vdd gnd dc 1.8V
+
+.subckt andGate a b out vdd gnd 
+    M1 nandOut a vdd vdd CMOSP W={width_P} L={2*LAMBDA} 
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M2 nandOut b vdd vdd CMOSP W={width_P} L={2*LAMBDA} 
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+    M3 nandOut a x gnd CMOSN W={2*width_N} L={2*LAMBDA}
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+    M4  x b gnd gnd CMOSN W={2*width_N} L={2*LAMBDA}
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+    *inverter*
+    M5 out nandOut vdd vdd CMOSP W={width_P} L={2*LAMBDA} 
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M6 out nandOut gnd gnd CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+.ends andGate
+
+.subckt orGate a b out vdd gnd 
+    M1 x a vdd vdd CMOSP W={4*width_N} L={2*LAMBDA} 
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+    M2 norOut b x vdd CMOSP W={4*width_N} L={2*LAMBDA} 
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+
+    M3 norOut a gnd gnd CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+    M4 norOut b gnd gnd CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+    *inverter*
+    M5 out norOut vdd vdd CMOSP W={width_P} L={2*LAMBDA} 
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M6 out norOut gnd gnd CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+.ends orGate
+
+.subckt xorGate a b fout vdd gnd 
+    M1p x a vdd vdd CMOSP W={width_P} L={2*LAMBDA} 
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M2n x a gnd gnd CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+    M3p xout b a vdd CMOSP W={width_P} L={2*LAMBDA} 
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M4n xout b x gnd CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+    *buffer*
+    M5 out xout vdd vdd CMOSP W={width_P} L={2*LAMBDA} 
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M6 out xout gnd gnd CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+    M7 fout out vdd vdd CMOSP W={width_P} L={2*LAMBDA} 
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M8 fout out gnd gnd CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+.ends xorGate
+
+.subckt op pi ci gi out vdd gnd 
+    Xand pi ci out1 vdd gnd andGate
+    Xor out1 gi out vdd gnd orGate
+.ends op
+
+* .subckt load in out vdd gnd width_Nm=10*LAMBDA
+*     Mp out in vdd vdd CMOSP W={4*width_Nm} L={2*LAMBDA} 
+*     + AS={5*4*width_Nm*LAMBDA} PS={10*LAMBDA+2*4*width_Nm} AD={5*4*width_Nm*LAMBDA} PD={10*LAMBDA+2*4*width_Nm}
+*     Mn out in gnd gnd CMOSN W={width_Nm} L={2*LAMBDA}
+*     + AS={5*width_Nm*LAMBDA} PS={10*LAMBDA+2*width_Nm} AD={5*width_Nm*LAMBDA} PD={10*LAMBDA+2*width_Nm}
+* .ends load
+
+.subckt dff D Clk Q vdd gnd width=10*LAMBDA
+    *D to X*
+    M3 Z D vdd vdd CMOSP W={4*width} L={2*LAMBDA} 
+    + AS={5*4*width*LAMBDA} PS={10*LAMBDA+2*4*width} AD={5*4*width*LAMBDA} PD={10*LAMBDA+2*4*width}
+    M2 X Clk Z vdd CMOSP W={4*width} L={2*LAMBDA} 
+    + AS={5*4*width*LAMBDA} PS={10*LAMBDA+2*4*width} AD={5*4*width*LAMBDA} PD={10*LAMBDA+2*4*width}
+    M1 X D gnd gnd CMOSN W={width} L={2*LAMBDA}
+    + AS={5*width*LAMBDA} PS={10*LAMBDA+2*width} AD={5*width*LAMBDA} PD={10*LAMBDA+2*width}
+
+    *X to Y*
+    M6 Y Clk vdd vdd CMOSP W={2*width} L={2*LAMBDA} 
+    + AS={5*2*width*LAMBDA} PS={10*LAMBDA+2*2*width} AD={5*2*width*LAMBDA} PD={10*LAMBDA+2*2*width}
+    M5 Y X W gnd CMOSN W={2*width} L={2*LAMBDA}
+    + AS={5*2*width*LAMBDA} PS={10*LAMBDA+2*2*width} AD={5*2*width*LAMBDA} PD={10*LAMBDA+2*2*width}
+    M4 W Clk gnd gnd CMOSN W={2*width} L={2*LAMBDA}
+    + AS={5*2*width*LAMBDA} PS={10*LAMBDA+2*2*width} AD={5*2*width*LAMBDA} PD={10*LAMBDA+2*2*width}
+
+    *Y to Qbar*
+    M9 Qbar Y vdd vdd CMOSP W={2*width} L={2*LAMBDA} 
+    + AS={5*2*width*LAMBDA} PS={10*LAMBDA+2*2*width} AD={5*2*width*LAMBDA} PD={10*LAMBDA+2*2*width}
+    M8 Qbar Clk V gnd CMOSN W={width} L={2*LAMBDA}
+    + AS={5*width*LAMBDA} PS={10*LAMBDA+2*width} AD={5*width*LAMBDA} PD={10*LAMBDA+2*width}
+    M7 V Y gnd gnd CMOSN W={width} L={2*LAMBDA}
+    + AS={5*width*LAMBDA} PS={10*LAMBDA+2*width} AD={5*width*LAMBDA} PD={10*LAMBDA+2*width}
+
+    *Qbar to Q - inverter*
+    M10 Q Qbar vdd vdd CMOSP W={2*width} L={2*LAMBDA} 
+    + AS={5*2*width*LAMBDA} PS={10*LAMBDA+2*2*width} AD={5*2*width*LAMBDA} PD={10*LAMBDA+2*2*width}
+    M11 Q Qbar gnd gnd CMOSN W={width} L={2*LAMBDA}
+    + AS={5*width*LAMBDA} PS={10*LAMBDA+2*width} AD={5*width*LAMBDA} PD={10*LAMBDA+2*width}
+.ends dff
+
+VClk Clk gnd PULSE(0 1.8 100p 1p 1p 2n 4n)
+
+VC0 C0 gnd dc 0
+
+VA0 A0in gnd PULSE(0 1.8 0p 1p 1p 20n 40n)
+VA1 A1in gnd PULSE(0 1.8 0p 1p 1p 20n 40n)
+VA2 A2in gnd PULSE(0 1.8 0p 1p 1p 20n 40n)
+VA3 A3in gnd PULSE(0 1.8 0p 1p 1p 20n 40n)
+VA4 A4in gnd PULSE(0 1.8 0p 1p 1p 20n 40n) 
+
+VB0 B0in gnd dc 1.8V
+VB1 B1in gnd dc 0
+VB2 B2in gnd dc 0
+VB3 B3in gnd dc 0
+VB4 B4in gnd dc 0
+
+XDA0 A0in Clk A0 vdd gnd dff width=10*LAMBDA 
+XDA1 A1in Clk A1 vdd gnd dff width=10*LAMBDA
+XDA2 A2in Clk A2 vdd gnd dff width=10*LAMBDA
+XDA3 A3in Clk A3 vdd gnd dff width=10*LAMBDA
+XDA4 A4in Clk A4 vdd gnd dff width=10*LAMBDA
+
+XDB0 B0in Clk B0 vdd gnd dff width=10*LAMBDA
+XDB1 B1in Clk B1 vdd gnd dff width=10*LAMBDA
+XDB2 B2in Clk B2 vdd gnd dff width=10*LAMBDA
+XDB3 B3in Clk B3 vdd gnd dff width=10*LAMBDA
+XDB4 B4in Clk B4 vdd gnd dff width=10*LAMBDA
+
+XP0 A0 B0 P0 vdd gnd xorGate
+XP1 A1 B1 P1 vdd gnd xorGate
+XP2 A2 B2 P2 vdd gnd xorGate
+XP3 A3 B3 P3 vdd gnd xorGate
+XP4 A4 B4 P4 vdd gnd xorGate
+
+XG0 A0 B0 G0 vdd gnd andGate
+XG1 A1 B1 G1 vdd gnd andGate
+XG2 A2 B2 G2 vdd gnd andGate
+XG3 A3 B3 G3 vdd gnd andGate
+XG4 A4 B4 G4 vdd gnd andGate
+
+Xop1 P0 C0 G0 C1 vdd gnd op
+Xop2 P1 C1 G1 C2 vdd gnd op
+Xop3 P2 C2 G2 C3 vdd gnd op
+Xop4 P3 G2 G3 Cbefore4 vdd gnd op
+XP3P2 P3 P2 P3P2 vdd gnd andGate
+Xop5 P3P2 C2 Cbefore4 C4 vdd gnd op
+Xop6 P4 C4 G4 C5 vdd gnd op
+
+XS0 C0 P0 S0 vdd gnd xorGate
+XS1 C1 P1 S1 vdd gnd xorGate
+XS2 C2 P2 S2 vdd gnd xorGate
+XS3 C3 P3 S3 vdd gnd xorGate
+XS4 C4 P4 S4 vdd gnd xorGate
+
+XDS0 S0 Clk S0out vdd gnd dff width=10*LAMBDA
+XDS1 S1 Clk S1out vdd gnd dff width=10*LAMBDA
+XDS2 S2 Clk S2out vdd gnd dff width=10*LAMBDA
+XDS3 S3 Clk S3out vdd gnd dff width=10*LAMBDA
+XDS4 S4 Clk S4out vdd gnd dff width=10*LAMBDA
+
+XDC5 C5 Clk C5out vdd gnd dff width=10*LAMBDA
+
+* .meas TRAN max TRIG V(a0) VAL=0.9 RISE=1 TARG V(C5) VAL=0.9 RISE=1
+* .meas TRAN min TRIG V(a0) VAL=0.9 RISE=1 TARG V(S0) VAL=0.9 RISE=1
+
+.tran 100p 300n
+
+.control
+
+run
+plot V(A0) V(B0)+2 V(A1)+4 V(B1)+6 V(A2)+8 V(B2)+20 V(A3)+12 V(B3)+14 V(A4)+16 V(B4)+18
+plot v(clk) V(S0out)+2 V(S1out)+4 V(S2out)+6 V(S3out)+8 V(S4out)+10 V(C5out)+12 
+.endc
+
+.end
+

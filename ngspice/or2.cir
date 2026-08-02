@@ -1,0 +1,40 @@
+.include TSMC_180nm.txt
+.param LAMBDA = 0.09u
+.param width_N = {10*LAMBDA}
+.param width_P = 2*width_N
+
+vdd vdd gnd dc 1.8V
+
+Va a 0 PULSE(0 1.8 0u 1p 1p 50n 100n)
+Vb b 0 PULSE(0 1.8 0u 1p 1p 100n 200n)
+
+*d g s b*
+
+*nor*
+M1 x a vdd vdd CMOSP W={width_P} L={2*LAMBDA} 
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+M2 norOut b x vdd CMOSP W={width_P} L={2*LAMBDA} 
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+M3 norOut a gnd gnd CMOSN W={width_N} L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+M4 norOut b gnd gnd CMOSN W={width_N} L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+
+
+.tran 1p 200n
+
+.control
+
+run
+plot V(a) V(b)+2 V(out)+4
+.endc
+
+.end
+
+*inverter*
+M5 out norOut vdd vdd CMOSP W={width_P} L={2*LAMBDA} 
++ AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+M6 out norOut gnd gnd CMOSN W={width_N} L={2*LAMBDA}
++ AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}

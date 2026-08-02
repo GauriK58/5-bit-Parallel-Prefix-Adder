@@ -1,0 +1,70 @@
+.include TSMC_180nm.txt
+.global gnd vdd
+
+VDD vdd gnd dc 1.8V
+
+.option scale=0.09u
+
+M1000 X D gnd Gnd CMOSN w=10 l=2
++  ad=50 pd=30 as=250 ps=140
+M1001 Y CLK vdd vdd CMOSP w=20 l=2
++  ad=100 pd=50 as=500 ps=240
+M1002 Q Qbar gnd Gnd CMOSN w=10 l=2
++  ad=50 pd=30 as=0 ps=0
+M1003 a_14_34# D vdd vdd CMOSP w=40 l=2
++  ad=160 pd=88 as=0 ps=0
+M1004 a_66_32# Y gnd Gnd CMOSN w=10 l=2
++  ad=40 pd=28 as=0 ps=0
+M1005 Qbar CLK a_66_32# Gnd CMOSN w=10 l=2
++  ad=50 pd=30 as=0 ps=0
+M1006 X CLK a_14_34# vdd CMOSP w=40 l=2
++  ad=200 pd=90 as=0 ps=0
+M1007 Qbar Y vdd vdd CMOSP w=20 l=2
++  ad=100 pd=50 as=0 ps=0
+M1008 a_44_22# X Y Gnd CMOSN w=20 l=2
++  ad=80 pd=48 as=100 ps=50
+M1009 gnd CLK a_44_22# Gnd CMOSN w=20 l=2
++  ad=0 pd=0 as=0 ps=0
+M1010 Q Qbar vdd vdd CMOSP w=20 l=2
++  ad=100 pd=50 as=0 ps=0
+
+C0 gnd CLK 0.19fF
+C1 gnd X 0.25fF
+C2 D CLK 0.10fF
+C3 Q Qbar 0.03fF
+C4 CLK Y 0.10fF
+C5 Q vdd 0.03fF
+C6 Qbar Y 0.02fF
+C7 vdd D 0.10fF
+C8 vdd Y 0.14fF
+C9 X CLK 0.36fF
+C10 vdd CLK 0.13fF
+C11 X vdd 0.03fF
+C12 Qbar vdd 0.13fF
+C13 gnd Gnd 0.43fF
+C14 Q Gnd 0.03fF
+C15 X Gnd 0.24fF
+C16 Qbar Gnd 0.12fF
+C17 Y Gnd 0.12fF
+C18 CLK Gnd 1.29fF
+C19 D Gnd 0.11fF
+C20 vdd Gnd 3.68fF
+
+VA0 Clk gnd PULSE(0 1.8 0n 1p 1p 50n 100n)
+VD D gnd PULSE(0 1.8 50n 1p 1p 100n 200n)
+
+.meas TRAN tsu TRIG V(D) VAL=0.9 FALL=1 TARG V(X) VAL=0.9 RISE=1
+.meas TRAN th TRIG V(Clk) VAL=0.9 RISE=3 TARG V(Y) VAL=0.9 FALL=2
+.meas TRAN tpcq TRIG V(Clk) VAL=0.9 RISE=3 TARG V(Q) VAL=0.9 FALL=1
+
+.tran 10p 300n 
+.ic V(Qbar)=1.8
+
+.control
+run
+set curplottitle = 'GauriKrishnan_2024102073_TSPC_DFF'
+plot V(Clk) V(D)+2 V(Q)+4
+* plot V(C0) V(C1)+2 V(C2)+4 V(C3)+6 V(C4)+8 V(C5)+10
+.endc
+
+.end

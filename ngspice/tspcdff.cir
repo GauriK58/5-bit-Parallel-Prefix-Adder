@@ -1,0 +1,72 @@
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.param LAMBDA=0.09u
+.param width={10*LAMBDA}
+.global gnd vdd
+
+VDD vdd gnd dc 1.8V
+
+*D G S B* 
+
+*D to X*
+M3 Z D vdd vdd CMOSP W={4*width} L={2*LAMBDA} 
++ AS={5*4*width*LAMBDA} PS={10*LAMBDA+2*4*width} AD={5*4*width*LAMBDA} PD={10*LAMBDA+2*4*width}
+
+M2 X Clk Z vdd CMOSP W={4*width} L={2*LAMBDA} 
++ AS={5*4*width*LAMBDA} PS={10*LAMBDA+2*4*width} AD={5*4*width*LAMBDA} PD={10*LAMBDA+2*4*width}
+
+M1 X D gnd gnd CMOSN W={width} L={2*LAMBDA}
++ AS={5*width*LAMBDA} PS={10*LAMBDA+2*width} AD={5*width*LAMBDA} PD={10*LAMBDA+2*width}
+
+*X to Y*
+M6 Y Clk vdd vdd CMOSP W={4*width} L={2*LAMBDA} 
++ AS={5*4*width*LAMBDA} PS={10*LAMBDA+2*4*width} AD={5*4*width*LAMBDA} PD={10*LAMBDA+2*4*width}
+
+M5 Y X W gnd CMOSN W={2*width} L={2*LAMBDA}
++ AS={5*2*width*LAMBDA} PS={10*LAMBDA+2*2*width} AD={5*2*width*LAMBDA} PD={10*LAMBDA+2*2*width}
+
+M4 W Clk gnd gnd CMOSN W={2*width} L={2*LAMBDA}
++ AS={5*2*width*LAMBDA} PS={10*LAMBDA+2*2*width} AD={5*2*width*LAMBDA} PD={10*LAMBDA+2*2*width}
+
+*Y to Qbar*
+
+M9 Qbar Y vdd vdd CMOSP W={2*width} L={2*LAMBDA} 
++ AS={5*2*width*LAMBDA} PS={10*LAMBDA+2*2*width} AD={5*2*width*LAMBDA} PD={10*LAMBDA+2*2*width}
+
+M8 Qbar Clk V gnd CMOSN W={width} L={2*LAMBDA}
++ AS={5*width*LAMBDA} PS={10*LAMBDA+2*width} AD={5*width*LAMBDA} PD={10*LAMBDA+2*width}
+
+M7 V Y gnd gnd CMOSN W={width} L={2*LAMBDA}
++ AS={5*width*LAMBDA} PS={10*LAMBDA+2*width} AD={5*width*LAMBDA} PD={10*LAMBDA+2*width}
+
+*Qbar to Q - inverter*
+M10 Q Qbar vdd vdd CMOSP W={2*width} L={2*LAMBDA} 
++ AS={5*2*width*LAMBDA} PS={10*LAMBDA+2*2*width} AD={5*2*width*LAMBDA} PD={10*LAMBDA+2*2*width}
+
+M11 Q Qbar gnd gnd CMOSN W={width} L={2*LAMBDA}
++ AS={5*width*LAMBDA} PS={10*LAMBDA+2*width} AD={5*width*LAMBDA} PD={10*LAMBDA+2*width}
+
+*load*
+M12 out Q vdd vdd CMOSP W={6*width} L={2*LAMBDA} 
++ AS={5*6*width*LAMBDA} PS={10*LAMBDA+2*6*width} AD={5*6*width*LAMBDA} PD={10*LAMBDA+2*6*width}
+
+M13 out Q gnd gnd CMOSN W={3*width} L={2*LAMBDA}
++ AS={5*3*width*LAMBDA} PS={10*LAMBDA+2*3*width} AD={5*3*width*LAMBDA} PD={10*LAMBDA+2*3*width}
+
+VA0 Clk gnd PULSE(0 1.8 0n 1p 1p 50n 100n)
+VD D gnd PULSE(0 1.8 50n 1p 1p 100n 200n)
+
+.meas TRAN tsu TRIG V(D) VAL=0.9 FALL=1 TARG V(X) VAL=0.9 RISE=1 
+.meas TRAN th TRIG V(Clk) VAL=0.9 RISE=3 TARG V(Y) VAL=0.9 FALL=2 
+.meas TRAN tPCQ TRIG V(Clk) VAL=0.9 RISE=3 TARG V(Q) VAL=0.9 FALL=1
+
+.tran 10p 300n 
+.ic V(Qbar)=1.8
+
+.control
+run
+plot V(Clk) V(D)+2 V(Q)+4
+* plot V(C0) V(C1)+2 V(C2)+4 V(C3)+6 V(C4)+8 V(C5)+10
+.endc
+
+.end
