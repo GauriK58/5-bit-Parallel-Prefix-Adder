@@ -1,6 +1,6 @@
 # 5-bit Parallel Prefix Adder (Brent–Kung)
 
-**Low-Power VLSI Design** — NGSPICE · MAGIC · AMD Xilinx Vivado
+**Low-Power VLSI Design** : NGSPICE · MAGIC · AMD Xilinx Vivado
 
 A 5-bit Carry Look-Ahead Adder built on the Brent–Kung parallel-prefix architecture, designed and characterized end-to-end: transistor-level gate design, TSPC flip-flop synchronization, MAGIC layout, pre-/post-layout SPICE simulation, static timing analysis, and final FPGA deployment in Verilog.
 
