@@ -4,8 +4,6 @@
 
 A 5-bit Carry Look-Ahead Adder built on the Brent–Kung parallel-prefix architecture, designed and characterized end-to-end: transistor-level gate design, TSPC flip-flop synchronization, MAGIC layout, pre-/post-layout SPICE simulation, static timing analysis, and final FPGA deployment in Verilog.
 
-**Gauri Krishnan** · 2024102073 · IIIT Hyderabad
-
 ---
 
 ## Table of Contents
