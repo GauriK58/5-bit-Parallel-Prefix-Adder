@@ -103,8 +103,8 @@ A **Gate Diffusion Input (GDI)**-based XOR structure is used, followed by two ca
 - Lower dynamic power consumption and improved switching speed.
 
 **Disadvantages**
-- GDI gates drive a signal onto a source/drain terminal rather than an insulated gate, so the driven node isn't fully isolated — this introduces finite input impedance, possible conduction-channel current flow, voltage degradation, and reduced noise margins, often requiring extra buffering to cascade reliably.
-- Since GDI doesn't produce rail-to-rail output, a buffer is added after the XOR logic, bringing the total to **8 transistors** — still well below the 12-transistor static CMOS implementation.
+- GDI gates drive a signal onto a source/drain terminal rather than an insulated gate, so the driven node isn't fully isolated. This introduces finite input impedance, voltage degradation, and reduced noise margins.
+- Since GDI doesn't produce rail-to-rail output, a buffer is added after the XOR logic, bringing the total to **8 transistors**, not 6. However, this is still better than the 12-transistor static CMOS implementation.
 
 ### AND / OR (Static CMOS)
 
