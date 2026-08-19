@@ -53,7 +53,9 @@ This lets carries be computed via a balanced prefix tree: bits are combined pair
 
 Flip-flops are placed at both the input (`A_i`, `B_i`, `C_i`) and output (`S_0`–`S_4`, `C_5`) boundaries of the adder, sandwiching the combinational logic between two synchronous stages. This mitigates metastability and input skew, keeps outputs stable for the full clock period, and eliminates race conditions.
 
-A **True Single-Phase Clock (TSPC)** D-flip-flop is used for this synchronization — its single-clock operation minimizes control complexity, its compact structure reduces area and power, and it supports the rapid switching needed for high clock frequencies. It's positive-edge-triggered: `D` is sampled onto an internal node while the clock is low (M1–M3), then propagated through to the output on the rising edge (M4–M9), with the sampling path fully disabled during the high phase so later changes on `D` don't leak through.
+A **True Single-Phase Clock (TSPC)** D-flip-flop is used for this synchronization. Its single-clock operation minimizes control complexity, its compact structure reduces area and power, and it supports the rapid switching needed for high clock frequencies. 
+
+It's positive-edge-triggered: `D` is sampled onto an internal node while the clock is low (M1–M3), then propagated through to the output on the rising edge (M4–M9), with the sampling path fully disabled during the high phase so later changes on `D` don't leak through.
 
 ### Timing Constraints
 
@@ -97,7 +99,7 @@ The adder's combinational logic is built from AND, OR, and XOR gates.
 A **Gate Diffusion Input (GDI)**-based XOR structure is used, followed by two cascaded inverters to restore full logic levels.
 
 **Advantages**
-- Realizes XOR with only 4 transistors vs. 12 for static CMOS — significant area savings.
+- Realizes XOR with only 4 transistors vs. 12 for static CMOS, which saves significant area.
 - Lower dynamic power consumption and improved switching speed.
 
 **Disadvantages**
